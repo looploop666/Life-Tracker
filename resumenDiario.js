@@ -116,7 +116,7 @@ function calcularTotalesxDia(registrosDeHoy){
         actualizacionHoras.id = id;
         actualizacionHoras.innerHTML = (horasCatDeHoy + " HORAS");
 
-        cardHoras.replaceChild(actualizacionHoras,cardhsmeditacion);
+        cardHoras.replaceChild(actualizacionHoras,id);
     });
 
         
