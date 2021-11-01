@@ -119,8 +119,6 @@ function calcularTotalesxDia(registrosDeHoy){
         cardHoras.replaceChild(actualizacionHoras,id);
     });
 
-        
-    
  }
 
 const registrosDeHoy = agruparRegistrosDeHoy();
