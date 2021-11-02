@@ -143,16 +143,6 @@ function notificarRegistroExitoso(){
 
 /* MAIN */
 
-//Creo un array con las categorías
-let categorias = [
-    {id: 1 , nombre: "Trabajo"},
-    {id: 2 , nombre: "Estudio"},
-    {id: 3 , nombre: "Ejercicio Físico"},
-    {id: 4 , nombre: "Recreación"},
-    {id: 5 , nombre: "Meditación"},
-    {id: 6 , nombre: "Vida Social"},
-];
-
 //Creo las categorías del selection en el html
 agregarCategorias();
 
