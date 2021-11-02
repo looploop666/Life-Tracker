@@ -5,5 +5,5 @@ let categorias = [
   { id: 3, nombre: "Ejercicio Físico", icon: 'icon-exercise.svg', bgColor: 'rgba(126, 252, 0, 0.466)'},
   { id: 4, nombre: "Recreación", icon: 'icon-play.svg', bgColor: 'rgba(30, 143, 255, 0.493)'},
   { id: 5, nombre: "Meditación", icon: 'icon-self-care.svg', bgColor: 'rgba(255, 166, 0, 0.514)'},
-  { id: 6, nombre: "Vida Social", icon: 'icon-social.svg', bgColor: 'rgba(186, 85, 211, 0.466)' }
+  { id: 6, nombre: "Vida Social", icon: 'icon-social.svg', bgColor: 'rgba(186, 85, 211, 0.466)'}
 ];
