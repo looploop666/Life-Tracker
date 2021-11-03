@@ -15,82 +15,115 @@
 </head>
 
 <body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="index.html">Life Tracker</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="resumenDiario.html">Resumen Diario</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Resumen Semanal</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Resumen Mensual</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+        </nav>
+    </header>
+
     <div class="container">
+
         <div class="text-center m-3">
             <h1>Life Tracker</h1>
+            <h3>Comenza a registrar tu productividad!</h3>
+            <h3>Una vez cargadas tus horas diarias según nuestras categorías, seguí tus avances desde el resumen diario, semanal y mensual.</h3>
         </div>
 
         <form id="formIngresoRegistros" class="row gx-3 gy-2 align-items-center m-3">
 
-            <div class="col-2"></div>
+                <div class="col-md-2"></div>
+              
+                <div class="col-12 col-md-8">
 
-            <div class="col-8">
-                <div class="row">
-                    <div class="col m-3">
-                        <label class="visually-hidden" for="usuario">Username</label>
-                        <div class="input-group">
-                            <div class="input-group-text">@</div>
-                            <input type="text" class="form-control" id="usuario"
-                                placeholder="Username" />
+                        <div class="row justify-content-center align-items-center form">
+                            <div class="row">
+                                <div class="col m-3">
+                                    <label class="visually-hidden" for="usuario">Username</label>
+                                    <div class="input-group">
+                                        <div class="input-group-text">@</div>
+                                        <input type="text" class="form-control" id="usuario" placeholder="Username" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row text-center">
+                                <div class=" col m-3">
+                                    <div>
+                                        <label for="fechaSeleccionada" class="form-label">Fecha</label>
+                                        <input type="date" class="form-control" id="fechaSeleccionada">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col m-3">
+                                    <label class="visually-hidden" for="selectcategoria1">Preference</label>
+                                    <select class="form-select" id="selectcategoria1">
+                                        <option selected>Elegí la categoría deseada</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col m-3">
+                                    <div class="input-group">
+                                        <span class="input-group-text input-horas">Horas dedicadas</span>
+                                        <input type="number" class="form-control" id="horas" />
+                                        <span class="input-group-text">hs.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6 text-center">
+                                    <button type="submit" class="btn btn-primary">Registrar</button>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <button type="button" class="btn btn-secondary mb-3">Agregar nueva Categoría</button>
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
-                </div>
 
-                <div class="row text-center">
-                    <div class=" col m-3">
-                        <div>
-                            <label for="fechaSeleccionada" class="form-label">Fecha</label>
-                            <input type="date" class="form-control" id="fechaSeleccionada">
+                        <div id="notificaciones">
+                            <h5 id="notificacionLogueo"></h5>
+                            <h5 id="notificacionAltaRegistro"></h5>
                         </div>
-                    </div>
+
+
+
+
+                    
                 </div>
 
-                <div class="row">
-                    <div class="col m-3">
-                        <label class="visually-hidden" for="selectcategoria1">Preference</label>
-                        <select class="form-select" id="selectcategoria1">
-                            <option selected>Elegí la categoría deseada</option>
-                        </select>
-                    </div>
-                </div>
+                <div class="col-md-2"></div>
 
-                <div class="row">
-                    <div class="col m-3">
-                        <div class="input-group">
-                            <span class="input-group-text">Horas dedicadas</span>
-                            <input type="number" class="form-control" id="horas"/>
-                            <span class="input-group-text">hs.</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-6 text-center">
-                        <button type="submit" class="btn btn-primary">Registrar</button>
-                    </div>
-                    <div class="col-6 text-center">
-                        <button type="button" class="btn btn-secondary">Agregar nueva Categoría</button>
-                    </div>
-                </div>
-
-                <div id="notificaciones">
-                    <h5 id="notificacionLogueo"></h5>
-                    <h5 id="notificacionAltaRegistro"></h5>
-                </div>
-
-               
-
-                
-            </div>
-
-            <div class="col-2"></div>
+            
         </form>
     </div>
 
     <script src="js/data.js"></script>
     <script src="js/altaRegistros.js"></script>
     <script src="js/registros.js"></script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>

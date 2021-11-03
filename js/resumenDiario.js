@@ -1,125 +1,126 @@
 
 /*-----Funciones-----*/
 
-/**************************************************************************************************/
-/* Esta función agrupa los registros correspondientes al día de la fecha en el array registrosDeHoy[] */ 
-/**************************************************************************************************/
+/****************************************************************************************************************/
+/* Esta función devuelve el array registrosEntreFechas con los registros que estén storage cuya fecha esté en el 
+intervalo indicado por sus parametros. 
+/****************************************************************************************************************/
 
-function agruparRegistrosDeHoy(){
+function devuelveRegistrosEntreFechas(desdeFecha, hastaFecha){
 
-    const fecha = new Date();
-    const registrosDeHoy = [];
+  desdeFecha.setHours(0, 0, 0, 0);
+  hastaFecha.setHours(0, 0, 0, 0);
 
-    let registrosEnStorage = JSON.parse(localStorage.getItem("registros"));
+  const registrosEntreFechas = [];
 
-    if(registrosEnStorage) {
+  let registros = JSON.parse(localStorage.getItem("registros"));
 
-        for(let i = 0; i < registrosEnStorage.length; i++){
-
-            let diaHoy = fecha.getDate();
-            let mesHoy = fecha.getMonth() + 1;
-            let añoHoy = fecha.getFullYear();
-
-            //Ya que el getDate y el getMonth devuelven numeros del 1 al 9 les agrego un 0 adelante 
-            //para poder hacer la comparación entre strings con registrosEnStorage[i].fecha
-            if (diaHoy<10 && diaHoy>0){
-                diaHoy = ("0"+ diaHoy);
-            }
-            if(mesHoy<10 && mesHoy>0){
-                mesHoy = ("0"+ mesHoy);
-            }
-            //genero el string con la fecha del día
-            let fechaHoy = diaHoy + "/" + mesHoy+ "/" + añoHoy;
-                //comparo las fechas de los registros guardados en storage con el string generado para la fecha de hoy
-                 if (registrosEnStorage[i].fecha == fechaHoy){
-                    
-                    registrosDeHoy.push(registrosEnStorage[i]);    
-                    
-                 }   
-         }
-         return registrosDeHoy;
-        console.log(registrosDeHoy);
+  registros.forEach(registro => {
+    let fechaRegistro = new Date(registro.fecha);
+    console.log(fechaRegistro);
+    if (fechaRegistro >= desdeFecha && fechaRegistro <= hastaFecha) {
+      registrosEntreFechas.push(registro);
     }
-    
+  })
+
+  return registrosEntreFechas; 
     
 }
+
+/***************************************************************************************************************/
+/* Esta función genera un json con los totales por categoría y los inicializa en 0. */ 
+/**************************************************************************************************************/
+ const inicializarTotales = () => {
+  let totales = {};
+
+  categorias.forEach(categoria => {
+    totales[categoria.nombre] = 0;
+  })
+
+  return totales;
+}
+ 
 /***************************************************************************************************************/
 /* Esta función toma el array registrosDeHoy y según su categoría genera las cards de resumen de horas diarias */ 
 /**************************************************************************************************************/
-function calcularTotalesxDia(registrosDeHoy){
+function calcularTotalesxCategorias(registros){
 
-     registrosDeHoy.forEach(element => {
+  let totales = inicializarTotales();
 
-        switch(element.categoria){
-             case "Trabajo":{
-                 const horasCat1DeHoy = element.horas;
-                 console.log(horasCat1DeHoy);
-                 const id = "cardhstrabajo";
-                 generarCardsResumenDiario(horasCat1DeHoy,id);
+     registros.forEach(registro => {
+          totales[registro.categoria] += registro.horas;       
+      });
 
-             }
-             break;
-             case "Estudio":{
-                const horasCat2DeHoy = element.horas;
-                console.log(horasCat2DeHoy);
-                const id = "card-hs-estudio";
-                generarCardsResumenDiario(horasCat2DeHoy,id);
-             }
-             break;
-             case "Recreación":{
-                const horasCat3DeHoy = element.horas;
-                console.log(horasCat3DeHoy);
-                const id = "card-hs-recreacion";
-                generarCardsResumenDiario(horasCat3DeHoy,id);
+      return totales;
+ }
 
-            }
-            break;
-            case "Ejercicio Físico":{
-                const horasCat4DeHoy = element.horas;
-                console.log(horasCat4DeHoy);
-                const id = "card-hs-ejercicio";
-                generarCardsResumenDiario(horasCat4DeHoy,id);
+ /***************************************************************************************************************/
+/* Esta función crea las cards para cada categoria tomando como parametros de entrada el total de hs por 
+   categoría (int) y el nombre de la categoría (string)*/ 
+/**************************************************************************************************************/
+  const crearCard = (totalCategoria, categoria) => {
 
-            }
-            break;
-            case "Vida Social":{
-                const horasCat5DeHoy = element.horas;
-                console.log(horasCat5DeHoy);
-                const id = "card-hs-social";
-                generarCardsResumenDiario(horasCat5DeHoy,id);
+      let divPadre = document.getElementById('cardsResumenDiario');
+      let card = document.createElement('div');
+      card.setAttribute('class', 'col-sm-1 col-md-4 col-lg-4');
+      card.innerHTML = generarHtmlCard(totalCategoria, categoria);
+      divPadre.appendChild(card);
+  }
+  
+ /***************************************************************************************************************/
+/* Esta función genera el html necesario para las cards por Categoría */ 
+/**************************************************************************************************************/
+  const generarHtmlCard = (totalCategoria, Nombrecategoria) => {
 
-            }
-            break;
-            case "Meditación":{
-                const horasCat6DeHoy = element.horas;
-                console.log(horasCat6DeHoy);
-                const id = "cardhsmeditacion";
-                generarCardsResumenDiario(horasCat6DeHoy,id);
-            }
-            break;
-
-         }        
-     });
-
+    categoria = buscarDatosCategoria(Nombrecategoria);
     
- }
-/***************************************************************************************************************/
-/* Esta función toma el array registrosDeHoy y según su categoría genera las cards de resumen de horas diarias */ 
+    return `
+            <div class="card">
+              <div class="card-body card-body-img ${categoria.bgcolor}">
+                <img src="images/${categoria.icon}" class="" alt="...">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">${categoria.nombre}</h5>
+              </div>
+              <div class="card-body">
+                <div class="card-body-trabajo">
+                  <h3 class="card-title" id="cardhstrabajo">${totalCategoria} HORAS</h3>
+                </div>
+              </div>
+            </div>
+          </div>`
+  }
+  
+ /***************************************************************************************************************/
+/* Esta función devuelve un json con los atributos de una categoría en particular solicitada
+   por el parametro NombreCategoria */ 
 /**************************************************************************************************************/
- function generarCardsResumenDiario(horasCatDeHoy,id){
+  const buscarDatosCategoria = (Nombrecategoria) => {
 
-    const cardHoras = document.getElementsByClassName("card-body");
-    console.log(cardHoras);
-        
-    cardHoras.forEach(element => {
-        const actualizacionHoras = document.createElement("h3");
-        actualizacionHoras.id = id;
-        actualizacionHoras.innerHTML = (horasCatDeHoy + " HORAS");
+    let datos = null;
+  
+    categorias.forEach(categoria => {
+  
+      if (categoria.nombre == Nombrecategoria) {
+        datos = categoria;
+        return;
+      }
+    })
+  
+    return datos;
+  }
+  
+//Instancio un objeto fecha para obtener la fecha de hoy
+let fechaHoy = new Date();
 
-        cardHoras.replaceChild(actualizacionHoras,id);
-    });
+//Invoco a la función para que me devuelva un array 
+//con los registros que esten entre las fechas indicadas(en este caso el día de hoy)
+let registros = devuelveRegistrosEntreFechas(fechaHoy, fechaHoy);
 
- }
+//calculo de las hs ingresadas en el día
+let totales = calcularTotalesxCategorias(registros);
 
-const registrosDeHoy = agruparRegistrosDeHoy();
-calcularTotalesxDia(registrosDeHoy);
+//generación de las cards en el html
+Object.keys(totales).forEach(function (categoria) {
+  crearCard(totales[categoria], categoria);
+});

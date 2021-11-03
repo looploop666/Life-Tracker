@@ -6,12 +6,23 @@
 
 body{
     background-color: black;
+    color:darkgray
+}
+
+.form{
+    border-radius: 10px;
+    border: none;
+    position: relative;
+    margin-bottom: 30px;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+    color: white;
+    background-color: rgb(17, 17, 112);
 }
 
 .card {
        
         border-radius: 10px;
-        border: none;
+        border:none;
         position: relative;
         margin-bottom: 30px;
         margin-top: 30px;
@@ -19,10 +30,13 @@ body{
         width: 18em;
         color: white;
         
+        
     }
 .card-body{
+    
     text-align: center;
     background-color: rgb(17, 17, 112);
+
    
 }
 .card-body-img{
@@ -38,28 +52,36 @@ body{
     
 }
 .card-body-img__work{
-    background-color:rgba(255, 68, 0, 0.493);
+    background-color:rgba(255, 68, 0, 0.493)!important;
 }
 .card-body-img__study{
-    background-color:rgba(255, 20, 145, 0.205);
+    background-color:rgba(255, 20, 145, 0.205)!important;
 }
 .card-body-img__play{
-    background-color:rgba(30, 143, 255, 0.493);
+    background-color:rgba(30, 143, 255, 0.493)!important;
 }
 .card-body-img__exercise{
-    background-color:rgba(126, 252, 0, 0.466);
+    background-color:rgba(126, 252, 0, 0.466)!important;
 }
 .card-body-img__social{
-    background-color:rgba(186, 85, 211, 0.466);
+    background-color:rgba(186, 85, 211, 0.466)!important;
 }
 .card-body-img__selfcare{
-    background-color: rgba(255, 166, 0, 0.514);
+    background-color: rgba(255, 166, 0, 0.514)!important;
 }
 
+@media (max-width: 320px) {
+    .input-horas{
+        font-size: 0.7rem;
+    }
+        
+ }
 
 @media (min-width: 768px) {
     .card{
         width: 10em;
+        height: 212px;
+     
     }
         
  }
@@ -67,6 +89,7 @@ body{
 @media (min-width: 1024px) {
     .card{
         width: 13em;
+        height: 212px;
     }
         
  }

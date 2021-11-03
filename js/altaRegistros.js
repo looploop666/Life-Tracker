@@ -83,7 +83,10 @@ function obtenerRegistrosDeStorage() {
     return registrosEnStorage;
 }
 
-//Guardo el registro en Storage
+/*****************************************************************************************************************/
+/* Guarda un registro en Storage
+/****************************************************************************************************************/
+
 function guardarRegistrosEnStorage(registro) {
 
     const registrosEnStorage = obtenerRegistrosDeStorage();
@@ -91,6 +94,9 @@ function guardarRegistrosEnStorage(registro) {
     localStorage.setItem("registros", JSON.stringify(registrosEnStorage));
 }
 
+/*****************************************************************************************************************/
+/* Informa al usuario que el logueo fue exitoso
+/****************************************************************************************************************/
 function notificarLogueoExitoso(usuarioIngresado){
 
     const notificacion = document.getElementById("notificaciones");
@@ -104,6 +110,9 @@ function notificarLogueoExitoso(usuarioIngresado){
         notificacion.replaceChild(opcionNotificacion,notificacionLogueo);
 }
 
+/*****************************************************************************************************************/
+/* Informa al usuario que el logue fue NO exitoso y por lo tanto no se guardarán los datos ingresados
+/****************************************************************************************************************/
 function notificarLogueoErroneo(){
 
     const notificacion = document.getElementById("notificaciones");
@@ -124,7 +133,9 @@ function notificarLogueoErroneo(){
         notificacion.replaceChild(opcionNotificacionAlta,notificacionAltaRegistro);
 
 }
-
+/*****************************************************************************************************************/
+/* Informa al usuario que se guardarán los datos ingresados.
+/****************************************************************************************************************/
 function notificarRegistroExitoso(){
 
     const notificacion = document.getElementById("notificaciones");
@@ -154,10 +165,11 @@ document.getElementById("formIngresoRegistros").addEventListener("submit", (even
 
     event.preventDefault();
 
+    //obtengo los datos de los inputs del formulario
     let usuarioIngresado = document.getElementById("usuario").value;
     const fecha = document.getElementById("fechaSeleccionada").value;
     const datosFecha = fecha.split("-");
-    const fechaAGuardar = `${datosFecha[2]}/${datosFecha[1]}/${datosFecha[0]}`;
+    const fechaAGuardar = `${datosFecha[1]}/${datosFecha[2]}/${datosFecha[0]}`;
     const categoria = categorias.find(categoria => categoria.id == document.getElementById("selectcategoria1").value).nombre;
     const horasIngresadas = Number(document.getElementById("horas").value);
 
