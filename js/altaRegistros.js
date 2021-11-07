@@ -159,36 +159,43 @@ agregarCategorias();
 const usuario = new Usuario(1, "admin", "123456");
 
 //Acciones luego del submit del formulario
-document.getElementById("formIngresoRegistros").addEventListener("submit", (event) => {
+$("#formIngresoRegistros").submit((event) => {
 
     event.preventDefault();
 
     //obtengo los datos de los inputs del formulario
-    let usuarioIngresado = document.getElementById("usuario").value;
-    const fecha = document.getElementById("fechaSeleccionada").value;
+    const usuarioIngresado = $("#usuario").val();
+    const fecha = $("#fechaSeleccionada").val();
     const datosFecha = fecha.split("-");
     const fechaAGuardar = `${datosFecha[1]}/${datosFecha[2]}/${datosFecha[0]}`;
-    const categoria = categorias.find(categoria => categoria.id == document.getElementById("selectcategoria1").value).nombre;
-    const horasIngresadas = Number(document.getElementById("horas").value);
+    const categoria = categorias.find(categoria => categoria.id == $("#selectcategoria1").val()).nombre;
+    const horasIngresadas = Number($("#horas").val());
 
+    if(usuario.validarLogin(usuarioIngresado) && validarHs(horasIngresadas)) { 
 
-    if(usuario.validarLogin(usuarioIngresado) && validarHs(horasIngresadas)) {
-
-        notificarLogueoExitoso(usuarioIngresado);
+        mensaje = "Login exitoso";
+        colorMensaje =  "green";
 
         const nuevoRegistro = new Registro(usuarioIngresado, fechaAGuardar, categoria, horasIngresadas);
         guardarRegistrosEnStorage(nuevoRegistro);
 
-        notificarRegistroExitoso();
-       
-        document.querySelector("form").reset();
-    }else{
-        notificarLogueoErroneo();
-        document.querySelector("form").reset();
+        mensaje = "Registro guardado!";
+        colorMensaje =  "green";
+
+    } else {
+        mensaje = "Credenciales invalidas";
+        colorMensaje =  "red";
     }
+
+    document.querySelector("form").reset();
+    $("#notificacionLogueo").html(`<strong>${mensaje}</strong>`);
+    $("#notificacionLogueo").prop(`"style", "color: "${colorMensaje}`);
+
+    $("#notificacionAltaRegistro").html(`<strong>${mensaje}</strong>`);
+    $("#notificacionAltaRegistro").prop(`"style", "color: "${colorMensaje}`);
+    
+    
 });
-
-
 
 
 
