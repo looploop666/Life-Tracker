@@ -40,15 +40,13 @@ class Usuario{
 
 function agregarCategorias() {
 
-    const selectCategorias1 = document.getElementById("selectcategoria1");
+    const selectCategorias1 = $("#selectcategoria1");
 
     for(const categoria of categorias) {
 
-        const opcionCategoria = document.createElement("option");
-        opcionCategoria.value = categoria.id;
-        opcionCategoria.innerHTML = categoria.nombre;
-    
-        selectCategorias1.appendChild(opcionCategoria);
+        const opcion = `<option id="${categoria.id}">${categoria.nombre}</option>`;
+        selectCategorias1.append(opcion);
+       
     }
 }
 

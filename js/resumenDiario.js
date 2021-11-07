@@ -41,7 +41,8 @@ function devuelveRegistrosEntreFechas(desdeFecha, hastaFecha){
 }
  
 /***************************************************************************************************************/
-/* Esta función toma el array registrosDeHoy y según su categoría genera las cards de resumen de horas diarias */ 
+/* Esta función toma el array de registros del día y acumula las hs segun categoría. Devuelve un json con los
+totales */ 
 /**************************************************************************************************************/
 function calcularTotalesxCategorias(registros){
 
