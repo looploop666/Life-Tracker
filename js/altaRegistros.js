@@ -92,63 +92,6 @@ function guardarRegistrosEnStorage(registro) {
     localStorage.setItem("registros", JSON.stringify(registrosEnStorage));
 }
 
-/*****************************************************************************************************************/
-/* Informa al usuario que el logueo fue exitoso
-/****************************************************************************************************************/
-function notificarLogueoExitoso(usuarioIngresado){
-
-    const notificacion = document.getElementById("notificaciones");
-
-
-        const opcionNotificacion = document.createElement("h5");
-        opcionNotificacion.id = "notificacionLogueo";
-        opcionNotificacion.innerHTML = ("Bienvenido " + usuarioIngresado + "!");
-        opcionNotificacion.style.cssText = 'text-align: center; color: green; margin-top:3em;'
-    
-        notificacion.replaceChild(opcionNotificacion,notificacionLogueo);
-}
-
-/*****************************************************************************************************************/
-/* Informa al usuario que el logue fue NO exitoso y por lo tanto no se guardarán los datos ingresados
-/****************************************************************************************************************/
-function notificarLogueoErroneo(){
-
-    const notificacion = document.getElementById("notificaciones");
-
-
-        const opcionNotificacion = document.createElement("h5");
-        opcionNotificacion.id = "notificacionLogueo";
-        opcionNotificacion.innerHTML = "El logueo no fue exitoso";
-        opcionNotificacion.style.cssText = 'text-align: center; color: red; margin-top:3em; '
-    
-        notificacion.replaceChild(opcionNotificacion,notificacionLogueo);
-
-        const opcionNotificacionAlta = document.createElement("h5");
-        opcionNotificacionAlta.id = "notificacionAltaRegistro";
-        opcionNotificacionAlta.innerHTML = "No se guardará el registro";
-        opcionNotificacionAlta.style.cssText = 'text-align: center; color: red;'
-    
-        notificacion.replaceChild(opcionNotificacionAlta,notificacionAltaRegistro);
-
-}
-/*****************************************************************************************************************/
-/* Informa al usuario que se guardarán los datos ingresados.
-/****************************************************************************************************************/
-function notificarRegistroExitoso(){
-
-    const notificacion = document.getElementById("notificaciones");
-
-
-        const opcionNotificacion = document.createElement("h5");
-        opcionNotificacion.id = "notificacionAltaRegistro";
-        opcionNotificacion.innerHTML = "Se guardó el registro exitosamente.";
-        opcionNotificacion.style.cssText = 'text-align: center; color: green;'
-    
-        notificacion.replaceChild(opcionNotificacion,notificacionAltaRegistro);
-    
-}
-
-
 
 /* MAIN */
 
@@ -191,13 +134,14 @@ $("#formIngresoRegistros").submit((event) => {
         colorMensaje =  "notificacionNoExitosa";
     }
 
-    document.querySelector("form").reset();
+    
     $("#notificacionLogueo").html(`<strong>${mensaje}</strong>`);
     $("#notificacionLogueo").addClass(colorMensaje);
 
     $("#notificacionAltaRegistro").html(`<strong>${mensajeAlta}</strong>`);
     $("#notificacionAltaRegistro").addClass(colorMensajeAlta);
     
+    document.querySelector("form").reset();
     
 });
 
