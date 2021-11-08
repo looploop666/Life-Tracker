@@ -19,6 +19,18 @@ body{
     background-color: rgb(17, 17, 112);
 }
 
+.notificacionExitosa{
+    color: green;
+    text-align: center;
+}
+
+.notificacionNoExitosa{
+    color: red;
+    text-align: center;
+
+
+}
+
 .card {
        
         border-radius: 10px;

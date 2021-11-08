@@ -44,7 +44,7 @@ function agregarCategorias() {
 
     for(const categoria of categorias) {
 
-        const opcion = `<option id="${categoria.id}">${categoria.nombre}</option>`;
+        const opcion = `<option value="${categoria.id}">${categoria.nombre}</option>`;
         selectCategorias1.append(opcion);
        
     }
@@ -170,29 +170,33 @@ $("#formIngresoRegistros").submit((event) => {
     const fechaAGuardar = `${datosFecha[1]}/${datosFecha[2]}/${datosFecha[0]}`;
     const categoria = categorias.find(categoria => categoria.id == $("#selectcategoria1").val()).nombre;
     const horasIngresadas = Number($("#horas").val());
+    let mensaje = "";
+    let colorMensaje = "";
+    let mensajeAlta = "";
+    let colorMensajeAlta = "";
 
     if(usuario.validarLogin(usuarioIngresado) && validarHs(horasIngresadas)) { 
 
         mensaje = "Login exitoso";
-        colorMensaje =  "green";
+        colorMensaje =  "notificacionExitosa";
 
         const nuevoRegistro = new Registro(usuarioIngresado, fechaAGuardar, categoria, horasIngresadas);
         guardarRegistrosEnStorage(nuevoRegistro);
 
-        mensaje = "Registro guardado!";
-        colorMensaje =  "green";
+        mensajeAlta = "Registro guardado!";
+        colorMensajeAlta =  "notificacionExitosa";
 
     } else {
         mensaje = "Credenciales invalidas";
-        colorMensaje =  "red";
+        colorMensaje =  "notificacionNoExitosa";
     }
 
     document.querySelector("form").reset();
     $("#notificacionLogueo").html(`<strong>${mensaje}</strong>`);
-    $("#notificacionLogueo").prop(`"style", "color: "${colorMensaje}`);
+    $("#notificacionLogueo").addClass(colorMensaje);
 
-    $("#notificacionAltaRegistro").html(`<strong>${mensaje}</strong>`);
-    $("#notificacionAltaRegistro").prop(`"style", "color: "${colorMensaje}`);
+    $("#notificacionAltaRegistro").html(`<strong>${mensajeAlta}</strong>`);
+    $("#notificacionAltaRegistro").addClass(colorMensajeAlta);
     
     
 });
