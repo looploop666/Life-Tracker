@@ -7,3 +7,4 @@ let categorias = [
   { id: 5, nombre: "Meditación", icon: 'icon-self-care.svg', bgcolor: 'card-body-img__selfcare'},
   { id: 6, nombre: "Vida Social", icon: 'icon-social.svg', bgcolor: 'card-body-img__social'},
 ];
+
