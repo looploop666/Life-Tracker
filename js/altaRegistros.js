@@ -56,13 +56,31 @@ function agregarCategorias() {
 
 function validarHs(horas){
 
-    if (Number.isInteger(horas) && horas > 0 && horas <= 24){
+    if (Number.isInteger(horas) && horas > 0 && horas <= 24 && horas != " "){
         return true;
     }else{
         return false;
     }
+}
 
+const resultadoValidarFecha = fecha => {
+    if (fecha.lenght == 0){
+        return false;
+    }
+}
 
+const resultadoValidarCategoria = categoria => {
+    if (categoria.lenght == 0){
+        return false;
+    }
+}
+
+function MostrarWarningSiNoPasaValidaciones(resultado,id){
+    if (!resultado){
+        $("#" + id).show;
+    }else{
+        $("#" + id).hide;
+    }
 }
 
 /*****************************************************************************************************************/
@@ -118,7 +136,15 @@ $("#formIngresoRegistros").submit((event) => {
     let mensajeAlta = "";
     let colorMensajeAlta = "";
 
-    if(usuario.validarLogin(usuarioIngresado) && validarHs(horasIngresadas)) { 
+    const resultadoValidacionLogin = usuario.validarLogin(usuarioIngresado);
+    const resultadoValidarHs = validarHs(horasIngresadas);
+
+   MostrarWarningSiNoPasaValidaciones(resultadoValidacionLogin, "pedirUsuario");
+   MostrarWarningSiNoPasaValidaciones(resultadoValidarFecha, "pedirFecha");
+   MostrarWarningSiNoPasaValidaciones(resultadoValidarCategoria, "pedirCategoria");
+   MostrarWarningSiNoPasaValidaciones(resultadoValidarHs, "pedirHoras");
+
+    if (resultadoValidacionLogin && resultadoValidarHs && resultadoValidarFecha && resultadoValidarCategoria) { 
 
         mensaje = "Login exitoso";
         colorMensaje =  "notificacionExitosa";
