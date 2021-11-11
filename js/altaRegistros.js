@@ -44,7 +44,7 @@ function agregarCategorias() {
 
     for(const categoria of categorias) {
 
-        const opcion = `<option id="${categoria.id}">${categoria.nombre}</option>`;
+        const opcion = `<option value="${categoria.id}">${categoria.nombre}</option>`;
         selectCategorias1.append(opcion);
        
     }
