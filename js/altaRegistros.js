@@ -77,9 +77,9 @@ const resultadoValidarCategoria = categoria => {
 
 function MostrarWarningSiNoPasaValidaciones(resultado,id){
     if (!resultado){
-        $("#" + id).show;
+        $("#" + id).show();
     }else{
-        $("#" + id).hide;
+        $("#" + id).hide();
     }
 }
 
