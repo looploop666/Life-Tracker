@@ -70,8 +70,8 @@
                                     <div class="input-group">
                                         <div class="input-group-text">@</div>
                                         <input type="text" class="form-control" id="usuario" placeholder="Username" />
-                                        <div id="pedirUsuario" style="display:none;">Por favor ingrese su usuario</div>
                                     </div>
+                                    <div class= "notificacionValidaciones" id="pedirUsuario">Por favor ingrese su usuario</div>
                                 </div>
                             </div>
 
@@ -82,16 +82,16 @@
                                         <input type="date" class="form-control" id="fechaSeleccionada">
                                     </div>
                                 </div>
-                                <div id="pedirFecha" style="display:none;">Por favor ingrese una fecha</div>
+                                <div class= "notificacionValidaciones" id="pedirFecha">Por favor ingrese una fecha</div>
                             </div>
 
                             <div class="row">
                                 <div class="col m-3">
                                     <label class="visually-hidden" for="selectcategoria1">Preference</label>
                                     <select class="form-select" id="selectcategoria1">
-                                        <option>Elegí la categoría deseada</option>
+                                        <option value="">Elegí la categoría deseada</option>
                                     </select>
-                                    <div id="pedirCategoria" style="display:none;">Por favor elegí una categoría</div>
+                                    <div class= "notificacionValidaciones" id="pedirCategoria">Por favor elegí una categoría</div>
                                 </div>
                             </div>
 
@@ -101,8 +101,8 @@
                                         <span class="input-group-text input-horas">Horas dedicadas</span>
                                         <input type="number" class="form-control" id="horas" />
                                         <span class="input-group-text">hs.</span>
-                                        <div id="pedirHoras" style="display:none;">Por favor ingresa la cantidad de horas</div>
                                     </div>
+                                    <div class= "notificacionValidaciones" id="pedirHoras">Por favor ingresa la cantidad de horas</div>
                                 </div>
                             </div>
 
@@ -113,6 +113,7 @@
                                 <div class="col-6 text-center">
                                     <button type="button" class="btn btn-secondary mb-3">Agregar nueva Categoría</button>
                                 </div>
+                                
                             </div>
 
                         </div>

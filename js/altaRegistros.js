@@ -63,14 +63,15 @@ function validarHs(horas){
     }
 }
 
-const resultadoValidarFecha = fecha => {
-    if (fecha.lenght == 0){
+function validarFecha(fecha){
+
+    if (fecha == ""){
         return false;
     }
 }
+function validarCategoria(categoria){
 
-const resultadoValidarCategoria = categoria => {
-    if (categoria.lenght == 0){
+    if (categoria == ""){
         return false;
     }
 }
@@ -127,22 +128,27 @@ $("#formIngresoRegistros").submit((event) => {
     //obtengo los datos de los inputs del formulario
     const usuarioIngresado = $("#usuario").val();
     const fecha = $("#fechaSeleccionada").val();
+    console.log(fecha);
     const datosFecha = fecha.split("-");
     const fechaAGuardar = `${datosFecha[1]}/${datosFecha[2]}/${datosFecha[0]}`;
-    const categoria = categorias.find(categoria => categoria.id == $("#selectcategoria1").val()).nombre;
+    const categoria = $("#selectcategoria1").val();
+    //const categoria = categorias.find(categoria => categoria.id == $("#selectcategoria1").val()).nombre;
     const horasIngresadas = Number($("#horas").val());
-    let mensaje = "";
-    let colorMensaje = "";
-    let mensajeAlta = "";
-    let colorMensajeAlta = "";
 
     const resultadoValidacionLogin = usuario.validarLogin(usuarioIngresado);
     const resultadoValidarHs = validarHs(horasIngresadas);
+    const resultadoValidarFecha = validarFecha(fecha);
+    const resultadoValidarCategoria = validarCategoria(categoria);
 
    MostrarWarningSiNoPasaValidaciones(resultadoValidacionLogin, "pedirUsuario");
    MostrarWarningSiNoPasaValidaciones(resultadoValidarFecha, "pedirFecha");
    MostrarWarningSiNoPasaValidaciones(resultadoValidarCategoria, "pedirCategoria");
    MostrarWarningSiNoPasaValidaciones(resultadoValidarHs, "pedirHoras");
+
+    let mensaje = "";
+    let colorMensaje = "";
+    let mensajeAlta = "";
+    let colorMensajeAlta = "";
 
     if (resultadoValidacionLogin && resultadoValidarHs && resultadoValidarFecha && resultadoValidarCategoria) { 
 

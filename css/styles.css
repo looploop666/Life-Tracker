@@ -82,6 +82,13 @@ body{
     background-color: rgba(255, 166, 0, 0.514)!important;
 }
 
+.notificacionValidaciones{
+    display: none;
+    color: red;
+    text-align: center;
+    
+}
+
 @media (max-width: 320px) {
     .input-horas{
         font-size: 0.7rem;
