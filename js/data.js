@@ -8,3 +8,5 @@ let categorias = [
   { id: 6, nombre: "Vida Social", icon: 'icon-social.svg', bgcolor: 'card-body-img__social'},
 ];
 
+
+

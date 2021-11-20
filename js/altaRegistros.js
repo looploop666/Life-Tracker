@@ -23,7 +23,7 @@ class Usuario{
     // }
 
     validarLogin(username){
-        if (username == this.username){
+        if (username == this.username && username != ""){
             return true;
         }else{
             return false;
@@ -67,12 +67,17 @@ function validarFecha(fecha){
 
     if (fecha == ""){
         return false;
+    }else{
+        return true;
     }
 }
 function validarCategoria(categoria){
 
     if (categoria == ""){
         return false;
+    }
+    else{
+        return true;
     }
 }
 
@@ -110,7 +115,6 @@ function guardarRegistrosEnStorage(registro) {
     registrosEnStorage.push(registro);
     localStorage.setItem("registros", JSON.stringify(registrosEnStorage));
 }
-
 
 /* MAIN */
 
@@ -150,21 +154,31 @@ $("#formIngresoRegistros").submit((event) => {
     let mensajeAlta = "";
     let colorMensajeAlta = "";
 
-    if (resultadoValidacionLogin && resultadoValidarHs && resultadoValidarFecha && resultadoValidarCategoria) { 
-
-        mensaje = "Login exitoso";
-        colorMensaje =  "notificacionExitosa";
-
-        const nuevoRegistro = new Registro(usuarioIngresado, fechaAGuardar, categoria, horasIngresadas);
-        guardarRegistrosEnStorage(nuevoRegistro);
-
-        mensajeAlta = "Registro guardado!";
-        colorMensajeAlta =  "notificacionExitosa";
-
-    } else {
+    if (!resultadoValidacionLogin){
         mensaje = "Credenciales invalidas";
         colorMensaje =  "notificacionNoExitosa";
+
+        $("#notificacionLogueo").html(`<strong>${mensaje}</strong>`);
+        $("#notificacionLogueo").addClass(colorMensaje);
+
+        document.querySelector("form").reset();
     }
+
+    if (!(resultadoValidacionLogin && resultadoValidarFecha && resultadoValidarCategoria && resultadoValidarHs)){
+        document.querySelector("form").reset();
+        return;
+    }
+
+    mensaje = "Login exitoso";
+    colorMensaje =  "notificacionExitosa";
+
+
+    const nombreCategoria = categorias.find(categoria => categoria.id == categoria).value.nombre;
+    const nuevoRegistro = new Registro(usuarioIngresado, fechaAGuardar, nombreCategoria, horasIngresadas);
+    guardarRegistrosEnStorage(nuevoRegistro);
+
+    mensajeAlta = "Registro guardado!";
+    colorMensajeAlta =  "notificacionExitosa";
 
     
     $("#notificacionLogueo").html(`<strong>${mensaje}</strong>`);
@@ -174,6 +188,7 @@ $("#formIngresoRegistros").submit((event) => {
     $("#notificacionAltaRegistro").addClass(colorMensajeAlta);
     
     document.querySelector("form").reset();
+    
     
 });
 
