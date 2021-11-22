@@ -129,20 +129,21 @@ $("#formIngresoRegistros").submit((event) => {
 
     event.preventDefault();
 
+    const URLGET = "http://localhost:3004/registros";
+
     //obtengo los datos de los inputs del formulario
     const usuarioIngresado = $("#usuario").val();
     const fecha = $("#fechaSeleccionada").val();
     console.log(fecha);
     const datosFecha = fecha.split("-");
     const fechaAGuardar = `${datosFecha[1]}/${datosFecha[2]}/${datosFecha[0]}`;
-    const categoria = $("#selectcategoria1").val();
-    //const categoria = categorias.find(categoria => categoria.id == $("#selectcategoria1").val()).nombre;
+    const categoriaIngresada = $("#selectcategoria1").val();
     const horasIngresadas = Number($("#horas").val());
 
     const resultadoValidacionLogin = usuario.validarLogin(usuarioIngresado);
     const resultadoValidarHs = validarHs(horasIngresadas);
     const resultadoValidarFecha = validarFecha(fecha);
-    const resultadoValidarCategoria = validarCategoria(categoria);
+    const resultadoValidarCategoria = validarCategoria(categoriaIngresada);
 
    MostrarWarningSiNoPasaValidaciones(resultadoValidacionLogin, "pedirUsuario");
    MostrarWarningSiNoPasaValidaciones(resultadoValidarFecha, "pedirFecha");
@@ -172,21 +173,29 @@ $("#formIngresoRegistros").submit((event) => {
     mensaje = "Login exitoso";
     colorMensaje =  "notificacionExitosa";
 
-
-    const nombreCategoria = categorias.find(categoria => categoria.id == categoria).value.nombre;
-    const nuevoRegistro = new Registro(usuarioIngresado, fechaAGuardar, nombreCategoria, horasIngresadas);
-    guardarRegistrosEnStorage(nuevoRegistro);
-
-    mensajeAlta = "Registro guardado!";
-    colorMensajeAlta =  "notificacionExitosa";
-
-    
     $("#notificacionLogueo").html(`<strong>${mensaje}</strong>`);
     $("#notificacionLogueo").addClass(colorMensaje);
 
-    $("#notificacionAltaRegistro").html(`<strong>${mensajeAlta}</strong>`);
-    $("#notificacionAltaRegistro").addClass(colorMensajeAlta);
+    const nombreCategoriaIngresada = categorias.find(categoria => categoria.id == categoriaIngresada).nombre;
+
+    //const nuevoRegistro = new Registro(usuarioIngresado, fechaAGuardar, nombreCategoriaIngresada, horasIngresadas);
+   // guardarRegistrosEnStorage(nuevoRegistro);
+
+   const infoPost =  {usuarioIngresado, fechaAGuardar, nombreCategoriaIngresada, horasIngresadas};
+
+   $.post(URLGET, infoPost, (respuesta, estado) => {
+
+    if (estado === "success") {
+
+        mensajeAlta = "Registro guardado!";
+        colorMensajeAlta =  "notificacionExitosa";
     
+        $("#notificacionAltaRegistro").html(`<strong>${mensajeAlta}</strong>`);
+        $("#notificacionAltaRegistro").addClass(colorMensajeAlta);
+    }
+});
+
+   
     document.querySelector("form").reset();
     
     

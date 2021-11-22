@@ -1,0 +1,17 @@
+{
+    "registros": [
+        {
+            "usuario": "pepito", 
+            "fecha": "15/10/2021", 
+            "categoria": "Estudio", 
+            "horas": "4"
+        },
+        {
+            "usuario": "lolo", 
+            "fecha": "18/10/2021", 
+            "categoria": "Meditación", 
+            "horas": "4"
+        }
+    ]
+}
+​
