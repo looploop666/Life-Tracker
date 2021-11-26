@@ -1,0 +1,46 @@
+{
+  "registros": [
+    {
+      "usuarioIngresado": "admin",
+      "fechaAGuardar": "11/22/2021",
+      "nombreCategoriaIngresada": "Trabajo",
+      "horasIngresadas": "8",
+      "id": 1
+    },
+    {
+      "usuarioIngresado": "admin",
+      "fechaAGuardar": "11/22/2021",
+      "nombreCategoriaIngresada": "Vida Social",
+      "horasIngresadas": "4",
+      "id": 2
+    },
+    {
+      "usuarioIngresado": "admin",
+      "fechaAGuardar": "11/23/2021",
+      "nombreCategoriaIngresada": "Trabajo",
+      "horasIngresadas": "8",
+      "id": 3
+    },
+    {
+      "usuarioIngresado": "admin",
+      "fechaAGuardar": "11/24/2021",
+      "nombreCategoriaIngresada": "Estudio",
+      "horasIngresadas": "4",
+      "id": 4
+    },
+    {
+      "usuarioIngresado": "admin",
+      "fechaAGuardar": "11/25/2021",
+      "nombreCategoriaIngresada": "Ejercicio Físico",
+      "horasIngresadas": "2",
+      "id": 5
+    },
+    {
+      "usuarioIngresado": "admin",
+      "fechaAGuardar": "11/26/2021",
+      "nombreCategoriaIngresada": "Estudio",
+      "horasIngresadas": "4",
+      "id": 6
+    }
+  ]
+}

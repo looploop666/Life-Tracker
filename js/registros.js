@@ -1,6 +1,7 @@
 
 class Registro {
-    constructor(usuario, fecha, categoria, horas) {
+    constructor(id,usuario, fecha, categoria, horas) {
+        this.id = id;
         this.usuario = usuario;
         this.fecha = fecha;
         this.categoria = categoria;

@@ -11,20 +11,49 @@ function devuelveRegistrosEntreFechas(desdeFecha, hastaFecha){
   desdeFecha.setHours(0, 0, 0, 0);
   hastaFecha.setHours(0, 0, 0, 0);
 
-  const registrosEntreFechas = [];
+  const URLGET = "http://localhost:3000/registros";
+  const URLPOST = "http://localhost:4000/registrosEntreFechas";
 
-  let registros = JSON.parse(localStorage.getItem("registros"));
+  //let registros = JSON.parse(localStorage.getItem("registros"));
 
-  registros.forEach(registro => {
-    let fechaRegistro = new Date(registro.fecha);
-    console.log(fechaRegistro);
-    if (fechaRegistro >= desdeFecha && fechaRegistro <= hastaFecha) {
-      registrosEntreFechas.push(registro);
+  $.get(URLGET, function (respuesta, estado) {
+
+    if (estado === "success") {
+
+      let listaRegistros = [];
+      listaRegistros = respuesta;
+      console.log(listaRegistros);
+
+      listaRegistros.forEach(registro => {
+
+        console.log(registro);
+
+        let fechaRegistro = new Date(registro.fechaAGuardar);
+        console.log(fechaRegistro);
+
+        let usuario = registro.usuarioIngresado;
+        let fecha = registro.fechaAGuardar;
+        let categoria = registro.nombreCategoriaIngresada;
+        let horas = registro.horasIngresadas;
+
+        if (fechaRegistro >= desdeFecha && fechaRegistro <= hastaFecha) {
+
+          const infoPost =  {usuario, fecha, categoria, horas};
+          
+          $.post(URLPOST, infoPost, (respuesta2, estado2) => {
+
+            if (estado2 === "success") {
+        
+               console.log("registro agregado");
+            }
+          });
+        
+        }
+      })
+      console.log("lista de registros generada");
+      
     }
-  })
-
-  return registrosEntreFechas; 
-    
+  });
 }
 
 /***************************************************************************************************************/
@@ -44,13 +73,28 @@ function devuelveRegistrosEntreFechas(desdeFecha, hastaFecha){
 /* Esta función toma el array de registros del día y acumula las hs segun categoría. Devuelve un json con los
 totales */ 
 /**************************************************************************************************************/
-function calcularTotalesxCategorias(registros){
+function calcularTotalesxCategorias(){
 
   let totales = inicializarTotales();
+  console.log(totales);
+  
+  const URLGET = "http://localhost:4000/registrosEntreFechas";
 
-     registros.forEach(registro => {
-          totales[registro.categoria] += registro.horas;       
-      });
+  $.get(URLGET, function (respuesta, estado) {
+
+    if (estado === "success") {
+
+      let listaRegistros = [];
+      listaRegistros = respuesta;
+      console.log(listaRegistros);
+
+      listaRegistros.forEach(registro => {
+
+        totales[registro.categoria] += registro.horas; 
+        
+      })
+    }
+  });
 
       return totales;
  }
@@ -116,10 +160,10 @@ let fechaHoy = new Date();
 
 //Invoco a la función para que me devuelva un array 
 //con los registros que esten entre las fechas indicadas(en este caso el día de hoy)
-let registros = devuelveRegistrosEntreFechas(fechaHoy, fechaHoy);
+devuelveRegistrosEntreFechas(fechaHoy, fechaHoy);
 
 //calculo de las hs ingresadas en el día
-let totales = calcularTotalesxCategorias(registros);
+let totales = calcularTotalesxCategorias();
 
 //generación de las cards en el html
 Object.keys(totales).forEach(function (categoria) {

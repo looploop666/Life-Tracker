@@ -129,7 +129,7 @@ $("#formIngresoRegistros").submit((event) => {
 
     event.preventDefault();
 
-    const URLGET = "http://localhost:3004/registros";
+    const URLGET = "http://localhost:3000/registros";
 
     //obtengo los datos de los inputs del formulario
     const usuarioIngresado = $("#usuario").val();
@@ -178,8 +178,10 @@ $("#formIngresoRegistros").submit((event) => {
 
     const nombreCategoriaIngresada = categorias.find(categoria => categoria.id == categoriaIngresada).nombre;
 
-    //const nuevoRegistro = new Registro(usuarioIngresado, fechaAGuardar, nombreCategoriaIngresada, horasIngresadas);
+
+    //const nuevoRegistro = new Registro(id,usuarioIngresado, fechaAGuardar, nombreCategoriaIngresada, horasIngresadas);
    // guardarRegistrosEnStorage(nuevoRegistro);
+   
 
    const infoPost =  {usuarioIngresado, fechaAGuardar, nombreCategoriaIngresada, horasIngresadas};
 
