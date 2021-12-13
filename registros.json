@@ -41,6 +41,76 @@
       "nombreCategoriaIngresada": "Estudio",
       "horasIngresadas": "4",
       "id": 6
+    },
+    {
+      "usuarioIngresado": "admin",
+      "fechaAGuardar": "11/27/2021",
+      "nombreCategoriaIngresada": "Ejercicio Físico",
+      "horasIngresadas": "4",
+      "id": 7
+    },
+    {
+      "usuarioIngresado": "admin",
+      "fechaAGuardar": "11/27/2021",
+      "nombreCategoriaIngresada": "Trabajo",
+      "horasIngresadas": "8",
+      "id": 8
+    },
+    {
+      "usuarioIngresado": "admin",
+      "fechaAGuardar": "11/27/2021",
+      "nombreCategoriaIngresada": "Estudio",
+      "horasIngresadas": "2",
+      "id": 10
+    },
+    {
+      "usuarioIngresado": "admin",
+      "fechaAGuardar": "11/27/2021",
+      "nombreCategoriaIngresada": "Meditación",
+      "horasIngresadas": "2",
+      "id": 11
+    },
+    {
+      "usuarioIngresado": "admin",
+      "fechaAGuardar": "11/28/2021",
+      "nombreCategoriaIngresada": "Ejercicio Físico",
+      "horasIngresadas": "2",
+      "id": 12
+    },
+    {
+      "usuarioIngresado": "admin",
+      "fechaAGuardar": "11/28/2021",
+      "nombreCategoriaIngresada": "Ejercicio Físico",
+      "horasIngresadas": "2",
+      "id": 13
+    },
+    {
+      "usuarioIngresado": "admin",
+      "fechaAGuardar": "12/07/2021",
+      "nombreCategoriaIngresada": "Estudio",
+      "horasIngresadas": "5",
+      "id": 14
+    },
+    {
+      "usuarioIngresado": "admin",
+      "fechaAGuardar": "12/08/2021",
+      "nombreCategoriaIngresada": "Estudio",
+      "horasIngresadas": "8",
+      "id": 15
+    },
+    {
+      "usuarioIngresado": "admin",
+      "fechaAGuardar": "12/11/2021",
+      "nombreCategoriaIngresada": "Trabajo",
+      "horasIngresadas": "8",
+      "id": 16
+    },
+    {
+      "usuarioIngresado": "admin",
+      "fechaAGuardar": "12/11/2021",
+      "nombreCategoriaIngresada": "Ejercicio Físico",
+      "horasIngresadas": "2",
+      "id": 17
     }
   ]
 }

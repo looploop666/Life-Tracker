@@ -6,7 +6,7 @@
 
 body{
     background-color: black;
-    color:darkgray
+    color:darkgray;
 }
 
 .form{
@@ -48,6 +48,7 @@ body{
     
     text-align: center;
     background-color: rgb(17, 17, 112);
+    
 
    
 }
@@ -81,12 +82,25 @@ body{
 .card-body-img__selfcare{
     background-color: rgba(255, 166, 0, 0.514)!important;
 }
+.card-body-img__gif{
+    background-color:white;
+    width: 100%;
+    border-radius: 10px;
+}
+.card-title-gif{
+    color:black;
+    text-align: center;
+}
 
 .notificacionValidaciones{
     display: none;
     color: red;
     text-align: center;
     
+}
+
+.gif{
+    margin-top: 15px;
 }
 
 @media (max-width: 320px) {

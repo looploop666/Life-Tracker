@@ -35,7 +35,7 @@ class Usuario{
 /*-----Funciones-----*/
 
 /**************************************************************************************************/
-/* Esta función genera las opciones de categorías en el index.html a partir del array categorias */ 
+/* Esta función genera las opciones de categorías en el index.html a partir del array categorias (data.js) */ 
 /**************************************************************************************************/
 
 function agregarCategorias() {
@@ -62,6 +62,9 @@ function validarHs(horas){
         return false;
     }
 }
+/**************************************************************************************************/
+/* Esta función valida la fecha ingresadas en el date picker del index.html */ 
+/**************************************************************************************************/
 
 function validarFecha(fecha){
 
@@ -71,6 +74,11 @@ function validarFecha(fecha){
         return true;
     }
 }
+
+/**************************************************************************************************/
+/* Esta función valida que no se haya dejado vacío el selector de categoría*/ 
+/**************************************************************************************************/
+
 function validarCategoria(categoria){
 
     if (categoria == ""){
@@ -81,6 +89,10 @@ function validarCategoria(categoria){
     }
 }
 
+/**************************************************************************************************/
+/* Esta función muestra los divs con los warnings si algún campo quedó incompleto */ 
+/**************************************************************************************************/
+
 function MostrarWarningSiNoPasaValidaciones(resultado,id){
     if (!resultado){
         $("#" + id).show();
@@ -89,72 +101,47 @@ function MostrarWarningSiNoPasaValidaciones(resultado,id){
     }
 }
 
-/*****************************************************************************************************************/
-/* Verifica si tengo registros guardados en el storage, si no los tengo creo el array vacío y lo envío a Storage */ 
-/****************************************************************************************************************/
-
-function obtenerRegistrosDeStorage() {
-
-    let registrosEnStorage = JSON.parse(localStorage.getItem("registros"));
-
-    if(!registrosEnStorage) {
-        registrosEnStorage = [];
-        localStorage.setItem("registros", JSON.stringify(registrosEnStorage));
-    }
-
-    return registrosEnStorage;
-}
-
-/*****************************************************************************************************************/
-/* Guarda un registro en Storage
-/****************************************************************************************************************/
-
-function guardarRegistrosEnStorage(registro) {
-
-    const registrosEnStorage = obtenerRegistrosDeStorage();
-    registrosEnStorage.push(registro);
-    localStorage.setItem("registros", JSON.stringify(registrosEnStorage));
-}
-
 /* MAIN */
 
-//Creo las categorías del selection en el html
+//Creo las categorías del select en el html
 agregarCategorias();
 
-//creo un usuario de prueba
+//creo un usuario de prueba, debe usarse siempre este usuario para poder loguearse
 const usuario = new Usuario(1, "admin", "123456");
 
 //Acciones luego del submit del formulario
 $("#formIngresoRegistros").submit((event) => {
 
     event.preventDefault();
-
+    //Mediante json server simulo el servidor donde tengo alojado registros.json
     const URLGET = "http://localhost:3000/registros";
 
     //obtengo los datos de los inputs del formulario
     const usuarioIngresado = $("#usuario").val();
     const fecha = $("#fechaSeleccionada").val();
-    console.log(fecha);
     const datosFecha = fecha.split("-");
     const fechaAGuardar = `${datosFecha[1]}/${datosFecha[2]}/${datosFecha[0]}`;
     const categoriaIngresada = $("#selectcategoria1").val();
     const horasIngresadas = Number($("#horas").val());
 
+    //valido todos los datos ingresados
     const resultadoValidacionLogin = usuario.validarLogin(usuarioIngresado);
     const resultadoValidarHs = validarHs(horasIngresadas);
     const resultadoValidarFecha = validarFecha(fecha);
     const resultadoValidarCategoria = validarCategoria(categoriaIngresada);
 
-   MostrarWarningSiNoPasaValidaciones(resultadoValidacionLogin, "pedirUsuario");
-   MostrarWarningSiNoPasaValidaciones(resultadoValidarFecha, "pedirFecha");
-   MostrarWarningSiNoPasaValidaciones(resultadoValidarCategoria, "pedirCategoria");
-   MostrarWarningSiNoPasaValidaciones(resultadoValidarHs, "pedirHoras");
+    //Si algun dato no pasa la validación se muestra un cartel de advertencia y no se permite continuar
+    MostrarWarningSiNoPasaValidaciones(resultadoValidacionLogin, "pedirUsuario");
+    MostrarWarningSiNoPasaValidaciones(resultadoValidarFecha, "pedirFecha");
+    MostrarWarningSiNoPasaValidaciones(resultadoValidarCategoria, "pedirCategoria");
+    MostrarWarningSiNoPasaValidaciones(resultadoValidarHs, "pedirHoras");
 
     let mensaje = "";
     let colorMensaje = "";
     let mensajeAlta = "";
     let colorMensajeAlta = "";
 
+    //Si el usuario no es el correcto se muestra una notificacion de login no exitoso
     if (!resultadoValidacionLogin){
         mensaje = "Credenciales invalidas";
         colorMensaje =  "notificacionNoExitosa";
@@ -164,33 +151,36 @@ $("#formIngresoRegistros").submit((event) => {
 
         document.querySelector("form").reset();
     }
-
+    //Si alguna de las validaciones continúa siendo negativa se resetea el formulario y sale
     if (!(resultadoValidacionLogin && resultadoValidarFecha && resultadoValidarCategoria && resultadoValidarHs)){
         document.querySelector("form").reset();
         return;
     }
-
+    //Si el usuario es el correcto se le informa al usuario que el login es exitoso
     mensaje = "Login exitoso";
     colorMensaje =  "notificacionExitosa";
 
     $("#notificacionLogueo").html(`<strong>${mensaje}</strong>`);
     $("#notificacionLogueo").addClass(colorMensaje);
 
+    //Busco el nombre de la categoría ingresada en categorías
     const nombreCategoriaIngresada = categorias.find(categoria => categoria.id == categoriaIngresada).nombre;
-
-
-    //const nuevoRegistro = new Registro(id,usuarioIngresado, fechaAGuardar, nombreCategoriaIngresada, horasIngresadas);
-   // guardarRegistrosEnStorage(nuevoRegistro);
-   
-
-   const infoPost =  {usuarioIngresado, fechaAGuardar, nombreCategoriaIngresada, horasIngresadas};
+    //Declaro los parametros que irán en el post
+    const infoPost =  {usuarioIngresado, fechaAGuardar, nombreCategoriaIngresada, horasIngresadas};
 
    $.post(URLGET, infoPost, (respuesta, estado) => {
 
     if (estado === "success") {
-
+        //si el estado es success se informa al usuario que el registro fue guardado correctamente
         mensajeAlta = "Registro guardado!";
         colorMensajeAlta =  "notificacionExitosa";
+    
+        $("#notificacionAltaRegistro").html(`<strong>${mensajeAlta}</strong>`);
+        $("#notificacionAltaRegistro").addClass(colorMensajeAlta);
+    }else{
+        //si no se pudo realizar el post se informa al usuario
+        mensajeAlta = "ERROR";
+        colorMensajeAlta =  "notificacionNoExitosa";
     
         $("#notificacionAltaRegistro").html(`<strong>${mensajeAlta}</strong>`);
         $("#notificacionAltaRegistro").addClass(colorMensajeAlta);
